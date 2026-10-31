@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FastFile</title>
+</head>
+<body>
+  <form action="/">
+    <label for="code">Code: </label>
+    <input type="text" name="code" id="code" placeholder="Input code">
+    <input type="submit" value="Download">
+  </form>
+  <script>
+    const form = document.querySelector("form")
+    form.addEventListener("submit", (event) => {
+      event.preventDefault()
+
+      const formdata = new FormData(form)
+      const code = formdata.get("code")
+
+      const url = new URL(`/${code}`, globalThis.location.origin)
+
+      globalThis.location.href = url.href
+    })
+  </script>
+</body>
+</html>
