@@ -84,7 +84,7 @@ func main() {
 
 		defer file.Close()
 
-		r.Header.Set("content-length", string(stat.Size()))
+		w.Header().Set("Content-Length", string(stat.Size()))
 
 		if _, err := io.Copy(w, file); err != nil {
 			logger.Error("Failed to send html file",
@@ -110,7 +110,7 @@ func main() {
 		zipwriter := zip.NewWriter(w)
 		defer zipwriter.Close()
 
-		r.Header.Set("content-disposition", "attachment; filename="+code+".zip")
+		w.Header().Set("content-disposition", "attachment; filename="+code+".zip")
 
 		for _, fp := range filepaths {
 			writer, err := zipwriter.Create(filepath.Base(fp))
